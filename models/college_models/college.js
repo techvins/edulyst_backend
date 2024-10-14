@@ -2,8 +2,26 @@ import mongoose from "mongoose";
 
 // Defining Schema
 const CollegeSchema = new mongoose.Schema({
-  name:{type:String, required:true, trim:true},
-  fees:{type:mongoose.Decimal128, required:true, validate:(value) => value >=5000.5 }
+  name: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  city: {
+    type: String,
+    required: true
+  },
+  state: {
+    type: String,
+    required: true
+  },
+  courses: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course'
+  }]
 })
 
 // Model 

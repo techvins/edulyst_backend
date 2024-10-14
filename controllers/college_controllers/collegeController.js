@@ -4,10 +4,12 @@ import CollegeModel from '../../models/college_models/college.js'
 class CollegeController {
   static createDoc = async (req, res) =>{
     try {
-      const {name,fees}= req.body
+      const {name,address,city,state}= req.body
       const doc = new CollegeModel({
         name:name,
-        fees:fees
+        address:address,
+        city:city,
+        state:state
       })
       const result = await doc.save()
       res.status(201).send(result)
