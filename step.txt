@@ -1,1 +1,1 @@
-docker build -t techvins/repo:edulyst_node_api . -f Dockerfile
+docker build -t techvins/repo:node_edulyst_api . -f Dockerfile
