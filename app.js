@@ -1,10 +1,20 @@
-const express = require("express");
-const app = express();
+import express from 'express'
+import connectDB from "./db/connectdb.js";
+// import web from "./routes/web.js";
+const app = express()
+const port = process.env.PORT || '3000'
+const DATABASE_URL = "mongodb://root:root@mongodb:27017/";
 
-app.get("/", function(req, res) {
-    return res.send("Hello World");
-});
+// Database Connection
+connectDB(DATABASE_URL);
 
-app.listen(3000, function(){
-    console.log('Listening on port 3000');
-});
+// JSON
+// app.use(express.json())
+
+// Load Routes
+// app.use("/student", web)
+
+
+app.listen(port, () => {
+ console.log(`Server listening at http://localhost:${port}`)
+})
