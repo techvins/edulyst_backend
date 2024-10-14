@@ -1,6 +1,6 @@
 import express from 'express'
 import connectDB from "./db/connectdb.js";
-// import web from "./routes/web.js";
+import college_web from "./routes/college_routes/web.js";
 const app = express()
 const port = process.env.PORT || '3000'
 const DATABASE_URL = "mongodb://root:root@mongodb:27017/";
@@ -12,7 +12,7 @@ connectDB(DATABASE_URL);
 // app.use(express.json())
 
 // Load Routes
-// app.use("/student", web)
+app.use("/college",college_web)
 
 
 app.listen(port, () => {
