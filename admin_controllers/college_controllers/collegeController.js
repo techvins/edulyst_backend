@@ -27,14 +27,21 @@ class CollegeController {
     }
   }
 
-  static getSingleDocById = async (req, res) =>{
+  static getSingleDocById = async (req, res) => {
     try {
-      const result = await CollegeModel.findById(req.params.id)
-      res.send(result)
+      const result = await CollegeModel.findById(req.params.id).populate('courses');
+      
+      if (!result) {
+        return res.status(404).json({ message: 'College not found' });
+      }
+  
+      res.status(200).json(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      res.status(500).json({ message: 'Server error', error });
     }
   }
+  
 
   static updateDocById = async (req, res) =>{
    try {
