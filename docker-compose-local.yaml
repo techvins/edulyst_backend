@@ -39,6 +39,9 @@ services:
     depends_on:
       - mongodb
 
+  redis:
+    image: redis
+
 volumes:
   node_modules:
   mongo_data:

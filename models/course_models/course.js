@@ -48,7 +48,10 @@ const applicationFormSchema = new mongoose.Schema({
     formfieldsvalue: [{
       fieldName: String,
       value: Number
-    }]
+    }],
+    total_score:{
+      type: Number
+    }
   });
 
 const CourseModel = mongoose.model('Course', courseSchema);
