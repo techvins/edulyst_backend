@@ -1,5 +1,5 @@
 import express from 'express'
-import cors from 'cors'
+// import cors from 'cors'
 import connectDB from "./db/connectdb.js";
 import admin_web from "./routes/admin_routes/web.js";
 import college_web from "./routes/college_routes/web.js";
