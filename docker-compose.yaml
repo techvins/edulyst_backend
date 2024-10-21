@@ -22,3 +22,8 @@ services:
 volumes:
   node_modules:
   mongo_data:
+
+networks:
+  default:
+    external:
+      name: techvins-network
