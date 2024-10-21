@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies (only production)
-RUN npm ci --only=production
+RUN npm install --only=production
 
 # Copy the rest of the application files to the container
 COPY . .
@@ -16,5 +16,5 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Command to run your application
-CMD ["npm", "start"]  # Changed this line to run the start script
+# Start the application
+CMD [ "npm", "start" ]
