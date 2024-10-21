@@ -14,7 +14,7 @@ const corsOptions = {
     origin: ['http://localhost:3000', 'http://localhost:3001'] // Whitelist the domains you want to allow
 };
 
-app.use(cors(corsOptions)); // Use the cors middleware with your options
+// app.use(cors(corsOptions)); // Use the cors middleware with your options
 
 // Database Connection
 connectDB(DATABASE_URL);
