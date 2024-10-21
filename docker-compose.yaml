@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   node_edulyst_api:
-    build: .
+    image: techvins/repo:node_edulyst_api
     volumes:
       - ./:/app
       - node_modules:/app/node_modules
