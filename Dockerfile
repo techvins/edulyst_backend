@@ -1,19 +1,19 @@
-FROM node:20.18.0
+# Use an official Node.js 20.18.0 Alpine image as a parent image
+FROM node:20.18.0-alpine
 
-WORKDIR /app
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if it exists) to the container
+# Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
-RUN npm ci --omit=dev && npm cache clean --force
+# Install dependencies (only production)
+RUN npm ci --only=production
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of your application code to the container
+# Copy the rest of the application files to the container
 COPY . .
 
-# Expose the application port
+# Expose the port the app runs on
 EXPOSE 3000
 
 # Command to run your application
