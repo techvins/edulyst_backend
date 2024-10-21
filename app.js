@@ -1,5 +1,5 @@
 import express from 'express'
-// import cors from 'cors'
+import cors from 'cors'
 import connectDB from "./db/connectdb.js";
 import admin_web from "./routes/admin_routes/web.js";
 import college_web from "./routes/college_routes/web.js";
@@ -14,7 +14,7 @@ const corsOptions = {
     origin: ['http://localhost:3000', 'http://localhost:3001'] // Whitelist the domains you want to allow
 };
 
-// app.use(cors(corsOptions)); // Use the cors middleware with your options
+app.use(cors(corsOptions)); // Use the cors middleware with your options
 
 // Database Connection
 connectDB(DATABASE_URL);
