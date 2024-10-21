@@ -6,7 +6,7 @@ export const createQueue = (name) => {
     redis: {
       host: process.env.REDIS_HOST || 'redis',
       port: process.env.REDIS_PORT || 6379,
-      db: process.env.REDIS_DB || 0,  // Use Redis DB 0 by default, or specify in .env
+      db: process.env.REDIS_DB || 6,  // Use Redis DB 0 by default, or specify in .env
     },
   });
 };
