@@ -5,6 +5,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json (if it exists) to the container
 COPY package*.json ./
 
+RUN npm ci --omit=dev && npm cache clean --force
+
 # Install dependencies
 RUN npm install
 
