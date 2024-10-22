@@ -11,7 +11,7 @@ const DATABASE_URL =  process.env.DATABASE_URL || "mongodb://root:root@mongodb:2
 // Define the CORS options
 const corsOptions = {
     credentials: true,
-    origin: ['http://localhost:3000', 'http://localhost:3001'] // Whitelist the domains you want to allow
+    origin: ['http://localhost:3000', 'http://localhost:3001','https://edulyst.techvins.com'] // Whitelist the domains you want to allow
 };
 
 app.use(cors(corsOptions)); // Use the cors middleware with your options
