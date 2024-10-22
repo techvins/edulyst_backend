@@ -20,7 +20,7 @@ class CollegeController {
 
   static getAllDoc = async (req, res) =>{
     try {
-      const result = await CollegeModel.find()
+      const result = await CollegeModel.find().populate('courses');
       res.send(result)
     } catch (error) {
       console.log(error)

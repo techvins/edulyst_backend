@@ -1,5 +1,5 @@
 import { createQueue } from './connectbull.js';
-import {CourseModel,ApplicationFormModel} from '../models/course_models/course.js'
+import {CourseModel} from '../models/course_models/course.js'
 
 const scoreQueue = createQueue('score-queue');
 
