@@ -29,9 +29,9 @@ class CollegeController {
 
   static getSingleDocById = async (req, res) => {
     try {
-      const objId  = req.params.id;
+      const studentApplicationId  = '67189e0675b7a7daf5824df5';
       const result = await CollegeModel.findById(req.params.id).populate('courses');
-      scoreQueue.add({ objId });
+      scoreQueue.add({ studentApplicationId });
       if (!result) {
         return res.status(404).json({ message: 'College not found' });
       }
