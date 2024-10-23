@@ -58,7 +58,7 @@ const courseSchema = new mongoose.Schema({
       ref: 'College',
       required: true
     },
-    applicationForms:{
+    applicationForm:{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'CollegeApplicationForm',
       required: true

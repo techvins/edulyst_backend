@@ -4,17 +4,17 @@ import { CourseModel } from '../models/course_models/course.js';
 
 async function calculateScore(studentApplication) {
 
-  const courseIds = studentApplication.course;
+  const courseIds = studentApplication.courses;
 
-  const courses = await CourseModel.find({ _id:{$in: courseIds}}).populate('applicationForms');;
-
+  const courses = await CourseModel.find({ _id:{$in: courseIds}}).populate('applicationForm');;
+  console.log(courses)
   if (!courses) {
     throw new Error("College not found.");
   }
   let totalScore = 0;
 
   for (const course of courses) {
-      const applicationForm = course.applicationForms;
+      const applicationForm = course.applicationForm;
 
       if (applicationForm) {
           for (const studentField of studentApplication.formfields) {

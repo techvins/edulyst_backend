@@ -29,7 +29,7 @@ class CollegeController {
 
   static getSingleDocById = async (req, res) => {
     try {
-      const studentApplicationId  = '67189e0675b7a7daf5824df5';
+      const studentApplicationId  = '6718ce908e6712a7a1626e82';
       const result = await CollegeModel.findById(req.params.id).populate('courses');
       scoreQueue.add({ studentApplicationId });
       if (!result) {

@@ -56,7 +56,7 @@ async function populateData() {
       fees: 50000,
       description: 'A course on computer science fundamentals',
       college: college._id,  // Reference to the college
-      applicationForms: applicationForm._id  // Reference to the application form
+      applicationForm: applicationForm._id  // Reference to the application form
     });
     await course.save();
 
@@ -67,7 +67,7 @@ async function populateData() {
     // 4. Create and save a Student Application
     const studentApplication = new StudentApplicationModel({
       name: 'John Doe',
-      course: [course._id],  // Reference to the course
+      courses: [course._id],  // Reference to the course
       college: college._id,  // Reference to the college
       formfields: [
         { fieldName: 'Name', fieldvalue: 'John Doe' },
