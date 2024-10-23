@@ -27,4 +27,4 @@ const StudentApplicationSchema = new mongoose.Schema({
   });
 
   const StudentApplicationModel = mongoose.model('StudentApplication', StudentApplicationSchema);
-  export {StudentApplicationModel};
+  export default StudentApplicationModel;

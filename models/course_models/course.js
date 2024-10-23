@@ -17,14 +17,23 @@ const collegeApplicationFormSchema = new mongoose.Schema({
   formfields: [{
     fieldName: {type:String,required: true}, 
     fieldType: {type: String,required: true},
+    priority: {
+      type: Number,
+      default: 1
+    },
     choices: [{
       name : String,
       value: String  
     }],
-    score:{
-      value : String,
-      score : String
-    }
+    role_sets: [{
+      value: { type: String },
+      comparison_operators: {
+        type: String,
+        enum: ['equal', 'not_equal', 'greater_than', 'less_than','greater_than_or_equal to','less_than_or_equal_to'],
+        required: true
+      },
+      score: { type: Number }
+    }]
   }],
 });
 
@@ -49,10 +58,11 @@ const courseSchema = new mongoose.Schema({
       ref: 'College',
       required: true
     },
-    applicationForms: [{
+    applicationForms:{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'CollegeApplicationForm' 
-    }]
+      ref: 'CollegeApplicationForm',
+      required: true
+    }
   });
 
 const CourseModel = mongoose.model('Course', courseSchema);
