@@ -1,5 +1,5 @@
 import CollegeModel from '../../models/college_models/college.js'
-
+import scoreQueue from '../../bull/scoreRollEngineQueue.js';
 
 class CollegeController {
   static createDoc = async (req, res) =>{
@@ -20,7 +20,7 @@ class CollegeController {
 
   static getAllDoc = async (req, res) =>{
     try {
-      const result = await CollegeModel.find().populate("courses")
+      const result = await CollegeModel.find().populate('courses');
       res.send(result)
     } catch (error) {
       console.log(error)
@@ -29,8 +29,9 @@ class CollegeController {
 
   static getSingleDocById = async (req, res) => {
     try {
+      const objId  = req.params.id;
       const result = await CollegeModel.findById(req.params.id).populate('courses');
-      
+      scoreQueue.add({ objId });
       if (!result) {
         return res.status(404).json({ message: 'College not found' });
       }
