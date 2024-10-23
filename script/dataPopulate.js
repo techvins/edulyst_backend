@@ -13,21 +13,7 @@ async function populateData() {
     });
     await college.save();
 
-    // 2. Create and save a new Course
-    const course = new CourseModel({
-      name: 'Computer Science',
-      duration: '4 Years',
-      fees: 50000,
-      description: 'A course on computer science fundamentals',
-      college: college._id  // Reference to the college
-    });
-    await course.save();
-
-    // Add course reference to the college
-    college.courses.push(course._id);
-    await college.save();
-
-    // 3. Create and save a new College Application Form
+    // 2. Create and save a new College Application Form
     const applicationForm = new CollegeApplicationFormModel({
       name: 'CS Application Form',
       priority: 1,
@@ -63,9 +49,20 @@ async function populateData() {
     });
     await applicationForm.save();
 
-    // Add application form reference to the course
-    course.applicationForms = applicationForm._id;
+    // 3. Create and save a new Course
+    const course = new CourseModel({
+      name: 'Computer Science',
+      duration: '4 Years',
+      fees: 50000,
+      description: 'A course on computer science fundamentals',
+      college: college._id,  // Reference to the college
+      applicationForms: applicationForm._id  // Reference to the application form
+    });
     await course.save();
+
+    // Add course reference to the college
+    college.courses.push(course._id);
+    await college.save();
 
     // 4. Create and save a Student Application
     const studentApplication = new StudentApplicationModel({
@@ -77,7 +74,7 @@ async function populateData() {
         { fieldName: 'Age', fieldvalue: 22 }
       ]
     });
-     await studentApplication.save();
+    await studentApplication.save();
   
       console.log('Data population complete');
     } catch (err) {

@@ -29,7 +29,7 @@ const collegeApplicationFormSchema = new mongoose.Schema({
       value: { type: String },
       comparison_operators: {
         type: String,
-        enum: ['equal', 'not_equal', 'greater_than', 'less_than','greater_than_or_equal to','less_than_or_equal_to'],
+        enum: ['equal', 'not_equal', 'greater_than', 'less_than','greater_than_or_equal_to','less_than_or_equal_to'],
         required: true
       },
       score: { type: Number }
