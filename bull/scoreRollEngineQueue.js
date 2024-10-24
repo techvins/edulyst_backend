@@ -7,7 +7,7 @@ async function calculateScore(studentApplication) {
   const courseIds = studentApplication.courses;
 
   const courses = await CourseModel.find({ _id:{$in: courseIds}}).populate('applicationForm');;
-  console.log(courses)
+
   if (!courses) {
     throw new Error("College not found.");
   }
@@ -23,7 +23,6 @@ async function calculateScore(studentApplication) {
               if (applicationField) {
                   for (const roleSet of applicationField.role_sets) {
                       let comparisonResult = false;
-
                       switch (roleSet.comparison_operators) {
                           case 'equal':
                               comparisonResult = studentField.fieldvalue === roleSet.value;
