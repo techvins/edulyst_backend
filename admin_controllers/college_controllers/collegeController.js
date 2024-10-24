@@ -43,7 +43,7 @@ class CollegeController {
     }
   }
   
-
+     
   static updateDocById = async (req, res) =>{
    try {
      const result = await CollegeModel.findByIdAndUpdate(req.params.id, req.body)
