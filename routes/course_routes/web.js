@@ -6,6 +6,4 @@ router.get('/courses', CourseController.getAllDoc);
 router.post('/courses', CourseController.createDoc);
 router.get('/college/course/:id', CourseController.getSingleDocById);
 
-
-
-export default router
+export default router;

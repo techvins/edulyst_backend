@@ -15,8 +15,8 @@ const collegeApplicationFormSchema = new mongoose.Schema({
     required: true
   },
   formfields: [{
-    fieldName: {type:String,required: true}, 
-    fieldType: {type: String,required: true},
+    fieldName: {type:String,required: true}, //unique name for each field
+    fieldType: {type: String,required: true}, // text, number, date, radio, checkbox, select
     priority: {
       type: Number,
       default: 1

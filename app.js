@@ -5,8 +5,10 @@ import admin_web from "./routes/admin_routes/web.js";
 import college_web from "./routes/college_routes/web.js";
 import course_web from "./routes/course_routes/web.js";
 const app = express()
-const port = process.env.PORT || '3000'
-const DATABASE_URL =  process.env.DATABASE_URL || "mongodb://root:root@mongodb:27017/";
+const port = process.env.PORT || '4000'
+// const DATABASE_URL =  process.env.DATABASE_URL || "mongodb://root:root@mongodb:27017/" ;
+const DATABASE_URL =  "mongodb://localhost:27017/";
+
 
 // Define the CORS options
 const corsOptions = {

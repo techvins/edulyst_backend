@@ -18,6 +18,10 @@ const CollegeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  description :{
+    type: String,
+    required: false,
+  },
   courses: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Course'
