@@ -5,7 +5,7 @@ const StudentApplicationSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    course: [{
+    courses: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'StudentCourse' 
     }],
@@ -27,4 +27,4 @@ const StudentApplicationSchema = new mongoose.Schema({
   });
 
   const StudentApplicationModel = mongoose.model('StudentApplication', StudentApplicationSchema);
-  export {StudentApplicationModel};
+  export default StudentApplicationModel;
