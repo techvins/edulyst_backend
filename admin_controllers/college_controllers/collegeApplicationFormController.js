@@ -1,4 +1,4 @@
-import {CollegeApplicationFormModel} from '../../models/course_models/course.js'
+import {CollegeApplicationFormModel} from '../../models/college_models/college.js'
 
 class CollegeApplicationFormController {
   static createDoc = async (req, res) => {

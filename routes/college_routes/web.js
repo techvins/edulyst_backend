@@ -1,9 +1,9 @@
 import express from 'express';
 const router = express.Router();
-import CollegeController from '../../admin_controllers/college_controllers/collegeController.js';
+import CollegeController from '../../controllers/college_controllers/CollegeController.js';
 
-router.get('/colleges', CollegeController.getAllDoc);
+router.get('/', CollegeController.getAllDoc);
 
-router.get('/college/:id', CollegeController.getSingleDocById);
+router.get('/:id', CollegeController.getSingleDocById);
 
 export default router

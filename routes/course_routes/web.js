@@ -1,9 +1,8 @@
 import express from 'express';
 const router = express.Router();
-import CourseController from '../../admin_controllers/course_controllers/courseController.js';
+import CourseController from '../../controllers/course_controllers/CourseController.js';
 
-router.get('/courses', CourseController.getAllDoc);
-router.post('/courses', CourseController.createDoc);
-router.get('/college/course/:id', CourseController.getSingleDocById);
+router.get('/', CourseController.getAllDoc);
+router.get('/:id', CourseController.getSingleDocById);
 
 export default router;

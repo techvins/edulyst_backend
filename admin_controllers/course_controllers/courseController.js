@@ -1,4 +1,4 @@
-import CollegeModel from '../../models/college_models/college.js'
+import {CollegeModel} from '../../models/college_models/college.js'
 import {CourseModel} from '../../models/course_models/course.js'
 
 
