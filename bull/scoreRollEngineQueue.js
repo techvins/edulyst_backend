@@ -2,6 +2,27 @@ import { createQueue } from './connectbull.js';
 import StudentApplicationModel from '../models/student_models/student.js'
 import { CourseModel } from '../models/course_models/course.js';
 
+const operators = {
+    equal: (a, b) => a === b,
+    not_equal: (a, b) => a !== b,
+    greater_than: (a, b) => a > b,
+    less_than: (a, b) => a < b,
+    greater_than_or_equal_to: (a, b) => a >= b,
+    less_than_or_equal_to: (a, b) => a <= b,
+    not_null_or_blank: (a) => a !== null && a !== '',
+    contains: (a, b) => a.includes(b),
+    range: (value, rangeValues) => {
+      const [min, max] = rangeValues;
+      return value >= min && value <= max;
+    },
+    date_range: (value, rangeValues) => {
+      const [start, end] = rangeValues.map(date => new Date(date)); 
+      const dateValue = new Date(value); 
+      return dateValue >= start && dateValue <= end;
+    }
+  };
+  
+
 async function calculateScore(studentApplication) {
 
   const courseIds = studentApplication.courses;
@@ -19,33 +40,17 @@ async function calculateScore(studentApplication) {
       if (applicationForm) {
           for (const studentField of studentApplication.formfields) {
               const applicationField = applicationForm.formfields.find(field => field.fieldName === studentField.fieldName);
-
               if (applicationField) {
                   for (const roleSet of applicationField.role_sets) {
-                      let comparisonResult = false;
-                      switch (roleSet.comparison_operators) {
-                          case 'equal':
-                              comparisonResult = studentField.fieldvalue === roleSet.value;
-                              break;
-                          case 'not_equal':
-                              comparisonResult = studentField.fieldvalue !== roleSet.value;
-                              break;
-                          case 'greater_than':
-                              comparisonResult = studentField.fieldvalue > roleSet.value;
-                              break;
-                          case 'less_than':
-                              comparisonResult = studentField.fieldvalue < roleSet.value;
-                              break;
-                          case 'greater_than_or_equal_to':
-                              comparisonResult = studentField.fieldvalue >= roleSet.value;
-                              break;
-                          case 'less_than_or_equal_to':
-                              comparisonResult = studentField.fieldvalue <= roleSet.value;
-                              break;
-                      }
-                      if (comparisonResult) {
-                          totalScore += roleSet.score || 0;
-                      }
+                    const operatorFunc = operators[roleSet.comparison_operators]; 
+                    if (operatorFunc) {
+                        const comparisonResult = operatorFunc(studentField.fieldvalue, roleSet.value);
+                        if (comparisonResult) {
+                            totalScore += roleSet.score || 0; 
+                        }
+                    } else {
+                        console.warn(`Operator ${roleSet.comparison_operators} not supported.`);
+                    }
                   }
               }
           }
