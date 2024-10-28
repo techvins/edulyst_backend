@@ -11,9 +11,9 @@ router.get('/college/:id', CollegeController.getSingleDocById)
 router.put('/college/:id', CollegeController.updateDocById)
 router.delete('/college/:id', CollegeController.deleteDocById)
 
-router.get('/college/course', CourseController.getAllDoc)
-router.post('/college/course', CourseController.createDoc)
-router.get('/college/course/:id', CourseController.getSingleDocById)
+router.get('/course', CourseController.getAllDoc)
+router.post('/course', CourseController.createDoc)
+router.get('/course/:id', CourseController.getSingleDocById)
 
 router.post('/college-application-form', CollegeApplicationFormController.createDoc);
 router.get('/college-application-form', CollegeApplicationFormController.getAllDocs);

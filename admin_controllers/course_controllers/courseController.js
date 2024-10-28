@@ -34,9 +34,9 @@ class CourseController {
       const filter = collegeId ? { college: collegeId } : {};
       const result = await CourseModel.find(filter).populate('applicationForm')
       if(!result){
-        return {};
+        return res.status(200).json([])
       }
-      return result.status(200).json(courses)
+      return res.status(200).json(result)
     } catch (error) {
       console.log(error)
     }
