@@ -3,7 +3,7 @@ import {CollegeModel} from '../../models/college_models/college.js'
 class CollegeController {
   static getAllDoc = async (req, res) =>{
     try {
-      const result = await CollegeModel.find().populate('courses');
+      const result = await CollegeModel.find().populate({ path: 'courses', populate: { path: 'applicationForm', model: 'CollegeApplicationForm' } });
       res.send(result)
     } catch (error) {
       console.log(error)
