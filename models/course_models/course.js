@@ -24,7 +24,7 @@ const courseSchema = new mongoose.Schema({
     applicationForm:{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'CollegeApplicationForm',
-      required: true
+      required: false
     }
   });
 
