@@ -14,7 +14,7 @@ class CollegeApplicationFormController {
 
   static getAllDocs = async (req, res) => {
     try {
-      const forms = await CollegeApplicationFormModel.find().populate('college'); 
+      const forms = await CollegeApplicationFormModel.find() 
       res.status(200).json(forms);
     } catch (error) {
       console.log(error);

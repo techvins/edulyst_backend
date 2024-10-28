@@ -30,7 +30,7 @@ class CourseController {
 
   static getAllDoc = async (req, res) =>{
     try {
-      const result = await CourseModel.find()
+      const result = await CourseModel.find().populate('college').populate('applicationForm')
       res.send(result)
     } catch (error) {
       console.log(error)
@@ -39,7 +39,7 @@ class CourseController {
 
   static getSingleDocById = async (req, res) =>{
     try {
-      const result = await CourseModel.findById(req.params.id)
+      const result = await CourseModel.findById(req.params.id).populate('applicationForm')
       res.send(result)
     } catch (error) {
       console.log(error)

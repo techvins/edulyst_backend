@@ -42,6 +42,7 @@ const collegeApplicationFormSchema = new mongoose.Schema({
     ref: 'college',
     required: true
   },
+  
   formfields: [{
     fieldName: {type:String,required: true}, 
     fieldType: {type: String  , enum: ['number', 'paragraph', 'short_answer', 'long_answer', 'dropdown', 'checkbox', 'radio'],required: true},
