@@ -30,8 +30,13 @@ class CourseController {
 
   static getAllDoc = async (req, res) =>{
     try {
-      const result = await CourseModel.find().populate('college').populate('applicationForm')
-      res.send(result)
+      const {collegeId} = req.query;
+      const filter = collegeId ? { college: collegeId } : {};
+      const result = await CourseModel.find(filter).populate('applicationForm')
+      if(!result){
+        return {};
+      }
+      return result.status(200).json(courses)
     } catch (error) {
       console.log(error)
     }

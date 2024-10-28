@@ -1,10 +1,18 @@
 import {CollegeApplicationFormModel} from '../../models/college_models/college.js'
+import { CourseModel } from '../../models/course_models/course.js';
 
 class CollegeApplicationFormController {
   static createDoc = async (req, res) => {
     try {
       const form = new CollegeApplicationFormModel(req.body);
       await form.save();
+      if(req.body.courseId){
+        await CourseModel.findByIdAndUpdate(
+          req.body.courseId, 
+          {applicationForm: form._id},
+          {new: true}
+        );
+      }
       res.status(201).json(form);
     } catch (error) {
       console.log(error);
