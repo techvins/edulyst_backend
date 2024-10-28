@@ -18,7 +18,7 @@ const courseSchema = new mongoose.Schema({
     },
     college: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'College',
+      ref: 'college',
       required: true
     },
     applicationForm:{
