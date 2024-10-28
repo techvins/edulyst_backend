@@ -42,9 +42,9 @@ const collegeApplicationFormSchema = new mongoose.Schema({
     ref: 'College',
     required: true
   },
-  questions: [{
-    title: {type:String,required: true}, 
-    type: {type: String  , enum: ['number', 'paragraph', 'short_answer', 'long_answer', 'dropdown', 'checkbox', 'radio'],required: true},
+  formfields: [{
+    fieldName: {type:String,required: true}, 
+    fieldType: {type: String  , enum: ['number', 'paragraph', 'short_answer', 'long_answer', 'dropdown', 'checkbox', 'radio'],required: true},
     priority: {
       type: Number,
       default: 1
