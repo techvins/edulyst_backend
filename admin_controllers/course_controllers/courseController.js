@@ -16,7 +16,7 @@ class CourseController {
             name,
             duration,
             fees,
-            college: collegeId
+            college: college._id
       });
       const result = await course.save()
       // Add course to the college's course list
