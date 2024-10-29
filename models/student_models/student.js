@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const StudentApplicationSchema = new mongoose.Schema({
     name: {
       type: String,
-      required: true
+      required: false
     },
     courses: [{
         type: mongoose.Schema.Types.ObjectId,

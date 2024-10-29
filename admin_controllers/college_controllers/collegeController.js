@@ -1,5 +1,5 @@
 import {CollegeModel} from '../../models/college_models/college.js'
-import scoreQueue from '../../bull/scoreRollEngineQueue.js';
+
 
 class CollegeController {
   static createDoc = async (req, res) =>{
@@ -31,7 +31,7 @@ class CollegeController {
     try {
       const studentApplicationId  = '6718ce908e6712a7a1626e82';
       const result = await CollegeModel.findById(req.params.id).populate('courses');
-      scoreQueue.add({ studentApplicationId });
+      
       if (!result) {
         return res.status(404).json({ message: 'College not found' });
       }
