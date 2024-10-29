@@ -18,6 +18,8 @@ router.get('/course/:id', CourseController.getSingleDocById)
 router.post('/college-application-form', CollegeApplicationFormController.createDoc);
 router.get('/college-application-form', CollegeApplicationFormController.getAllDocs);
 router.get('/college-application-form/:id', CollegeApplicationFormController.getSingleDocById);
+router.post('/student-application-form', createStudentApplication);
+
 
 
 
