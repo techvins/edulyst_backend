@@ -3,7 +3,7 @@ const router = express.Router();
 import CollegeController from '../../admin_controllers/college_controllers/collegeController.js';
 import CourseController from '../../admin_controllers/course_controllers/courseController.js';
 import CollegeApplicationFormController from '../../admin_controllers/college_controllers/collegeApplicationFormController.js';
-import createStudentApplication from '../../admin_controllers/studentApplicationController.js';
+
 
 
 router.get('/college', CollegeController.getAllDoc)
@@ -19,7 +19,7 @@ router.get('/course/:id', CourseController.getSingleDocById)
 router.post('/college-application-form', CollegeApplicationFormController.createDoc);
 router.get('/college-application-form', CollegeApplicationFormController.getAllDocs);
 router.get('/college-application-form/:id', CollegeApplicationFormController.getSingleDocById);
-router.post('/student-application-form', createStudentApplication.createDoc);
+
 
 
 

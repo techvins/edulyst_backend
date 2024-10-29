@@ -1,5 +1,5 @@
-import StudentApplicationModel from "../models/student_models/student";
-import scoreQueue from '../bull/scoreRollEngineQueue.js';
+import StudentApplicationModel from "../../models/student_models/student.js";
+import scoreQueue from '../../bull/scoreRollEngineQueue.js';
 
 class createStudentApplication {
     static createDoc = async (req, res) => {
