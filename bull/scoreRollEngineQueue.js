@@ -70,6 +70,8 @@ async function handleStudentApplication(studentApplicationId) {
 
   const totalScore = await calculateScore(studentApplication);
   console.log(`Total Score for Student Application: ${totalScore}`);
+  studentApplication.totalScore = totalScore;
+  await studentApplication.save();
 }
 
 const scoreQueue = createQueue('score-queue');

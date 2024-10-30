@@ -23,7 +23,12 @@ const StudentApplicationSchema = new mongoose.Schema({
           type: mongoose.Schema.Types.Mixed,
           required: true
         }
-      }]
+      }],
+    totalScore: {
+        type: Number,
+        default: 0,
+        required: false
+      },
   });
 
   const StudentApplicationModel = mongoose.model('StudentApplication', StudentApplicationSchema);
