@@ -24,41 +24,57 @@ const operators = {
   
 
 async function calculateScore(studentApplication) {
-
-  const courseIds = studentApplication.courses;
-
-  const courses = await CourseModel.find({ _id:{$in: courseIds}}).populate('applicationForm');;
-
-  if (!courses) {
-    throw new Error("College not found.");
-  }
-  let totalScore = 0;
-
-  for (const course of courses) {
-      const applicationForm = course.applicationForm;
-
-      if (applicationForm) {
-          for (const studentField of studentApplication.formfields) {
-              const applicationField = applicationForm.formfields.find(field => field.fieldName === studentField.fieldName);
-              if (applicationField) {
-                  for (const roleSet of applicationField.role_sets) {
-                    const operatorFunc = operators[roleSet.comparison_operators]; 
-                    if (operatorFunc) {
-                        const comparisonResult = operatorFunc(studentField.fieldvalue, roleSet.value);
-                        if (comparisonResult) {
-                            totalScore += roleSet.score || 0; 
-                        }
-                    } else {
-                        console.warn(`Operator ${roleSet.comparison_operators} not supported.`);
-                    }
-                  }
-              }
+    const courseIds = studentApplication.courses;
+  
+    const courses = await CourseModel.find({ _id: { $in: courseIds } })
+      .populate({
+        path: 'applicationForm',
+        populate: {
+          path: 'sections',
+          model: 'FormSection',
+          populate: {
+            path: 'formfields',
+            model: 'FormField'
           }
+        }
+      });
+  
+    if (!courses) {
+      throw new Error("Courses not found.");
+    }
+    console.log(courses)
+  
+    let totalScore = 0;
+  
+    for (const course of courses) {
+      const applicationForm = course.applicationForm;
+  
+      if (applicationForm && applicationForm.sections) {
+        for (const section of applicationForm.sections) {
+          for (const applicationField of section.formfields) {
+            const studentField = studentApplication.formfields.find(field => field.fieldName === applicationField.fieldName);
+  
+            if (studentField) {
+              for (const roleSet of applicationField.role_sets) {
+                const operatorFunc = operators[roleSet.comparison_operators];
+  
+                if (operatorFunc) {
+                  const comparisonResult = operatorFunc(studentField.fieldvalue, roleSet.value);
+                  if (comparisonResult) {
+                    totalScore += roleSet.score || 0; // Accumulate the score
+                  }
+                } else {
+                  console.warn(`Operator ${roleSet.comparison_operators} not supported.`);
+                }
+              }
+            }
+          }
+        }
       }
+    }
+  
+    return totalScore;
   }
-
-  return totalScore;
-}
 
 
 async function handleStudentApplication(studentApplicationId) {

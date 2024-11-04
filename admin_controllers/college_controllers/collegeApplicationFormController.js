@@ -1,21 +1,49 @@
-import {CollegeApplicationFormModel} from '../../models/college_models/college.js'
+import {CollegeApplicationFormSectionModel,CollegeApplicationFormModel} from '../../models/college_models/college.js'
 import { CourseModel } from '../../models/course_models/course.js';
 
 class CollegeApplicationFormController {
   static createDoc = async (req, res) => {
     try {
-      const form = new CollegeApplicationFormModel(req.body);
+      const { title, priority, college, courseId, sections } = req.body;
+
+      const sectionIds = await Promise.all(sections.map(async (sectionData) => {
+        const formfields = sectionData.formfields.map((field) => ({
+          fieldName: field.fieldName,
+          fieldType: field.fieldType,
+          priority: field.priority,
+          role_sets: field.role_sets, 
+        }));
+
+        const section = new CollegeApplicationFormSectionModel({
+          name: sectionData.name,
+          priority: sectionData.priority,
+          college,
+          formfields,
+        });
+
+        await section.save();
+        return section._id;
+      }));
+
+      const form = new CollegeApplicationFormModel({
+        title,
+        priority,
+        college,
+        sections: sectionIds,
+      });
       await form.save();
-      if(req.body.courseId){
+
+      if (courseId) {
         await CourseModel.findByIdAndUpdate(
-          req.body.courseId, 
-          {applicationForm: form._id},
-          {new: true}
+          courseId,
+          { applicationForm: form._id },
+          { new: true }
         );
       }
+
       res.status(201).json(form);
     } catch (error) {
-      console.log(error);
+      console.error('Error creating application form and sections:', error);
       res.status(400).json({ message: 'Error creating form', error: error.message });
     }
   }

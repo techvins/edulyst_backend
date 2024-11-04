@@ -28,8 +28,8 @@ const CollegeSchema = new mongoose.Schema({
   }]
 })
 
-const collegeApplicationFormSchema = new mongoose.Schema({
-  title: {
+const collegeApplicationFormSectionSchema = new mongoose.Schema({
+  name: {
     type: String,
     required: true
   },
@@ -42,10 +42,9 @@ const collegeApplicationFormSchema = new mongoose.Schema({
     ref: 'college',
     required: true
   },
-  
   formfields: [{
     fieldName: {type:String,required: true}, 
-    fieldType: {type: String  , enum: ['number', 'paragraph', 'short_answer', 'long_answer', 'dropdown', 'checkbox', 'radio'],required: true},
+    fieldType: {type: String  , enum: ['number', 'paragraph', 'short_answer', 'date','long_answer', 'dropdown', 'checkbox', 'radio'],required: true},
     priority: {
       type: Number,
       default: 1
@@ -66,7 +65,28 @@ const collegeApplicationFormSchema = new mongoose.Schema({
   }],
 });
 
+const collegeApplicationFormSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  priority: {
+    type: Number,
+    default: 1
+  },
+  college: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'college',
+    required: true
+  },
+  sections: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'FormSection' 
+  }],
+});
+
 // Model 
 const CollegeModel = mongoose.model("college", CollegeSchema)
+const CollegeApplicationFormSectionModel = mongoose.model("CollegeApplicationFormSection",collegeApplicationFormSectionSchema)
 const CollegeApplicationFormModel = mongoose.model('CollegeApplicationForm',collegeApplicationFormSchema);
-export {CollegeModel,CollegeApplicationFormModel}
+export {CollegeModel,CollegeApplicationFormSectionModel,CollegeApplicationFormModel}
