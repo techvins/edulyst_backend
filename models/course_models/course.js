@@ -16,6 +16,10 @@ const courseSchema = new mongoose.Schema({
     description: {
       type: String
     },
+    priority: {
+      type: Number,
+      default: 1
+    },
     college: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'college',
@@ -26,6 +30,8 @@ const courseSchema = new mongoose.Schema({
       ref: 'CollegeApplicationForm',
       required: false
     }
+  },{
+    timestamps: true 
   });
 
 const CourseModel = mongoose.model('Course', courseSchema);

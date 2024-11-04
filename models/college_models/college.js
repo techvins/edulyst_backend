@@ -26,6 +26,8 @@ const CollegeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Course'
   }]
+}, {
+  timestamps: true 
 })
 
 const collegeApplicationFormSectionSchema = new mongoose.Schema({
@@ -63,6 +65,8 @@ const collegeApplicationFormSectionSchema = new mongoose.Schema({
       score: { type: Number }
     }]
   }],
+},{
+  timestamps: true // Adds createdAt and updatedAt fields
 });
 
 const collegeApplicationFormSchema = new mongoose.Schema({
@@ -83,10 +87,12 @@ const collegeApplicationFormSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'FormSection' 
   }],
+},{
+  timestamps: true
 });
 
 // Model 
-const CollegeModel = mongoose.model("college", CollegeSchema)
+const CollegeModel = mongoose.model("College", CollegeSchema)
 const CollegeApplicationFormSectionModel = mongoose.model("CollegeApplicationFormSection",collegeApplicationFormSectionSchema)
 const CollegeApplicationFormModel = mongoose.model('CollegeApplicationForm',collegeApplicationFormSchema);
 export {CollegeModel,CollegeApplicationFormSectionModel,CollegeApplicationFormModel}

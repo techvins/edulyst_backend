@@ -29,6 +29,8 @@ const StudentApplicationSchema = new mongoose.Schema({
         default: 0,
         required: false
       },
+  },{
+    timestamps: true
   });
 
   const StudentApplicationModel = mongoose.model('StudentApplication', StudentApplicationSchema);
