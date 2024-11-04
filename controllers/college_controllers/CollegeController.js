@@ -3,7 +3,21 @@ import {CollegeModel} from '../../models/college_models/college.js'
 class CollegeController {
   static getAllDoc = async (req, res) =>{
     try {
-      const result = await CollegeModel.find().populate({ path: 'courses', populate: { path: 'applicationForm', model: 'CollegeApplicationForm' } });
+      const result = await CollegeModel.find().populate({
+        path: 'courses',
+        populate: {
+          path: 'applicationForm',
+          model: 'CollegeApplicationForm',
+          populate: {
+            path: 'sections',
+            model: 'CollegeApplicationFormSection',
+            populate: {
+              path: 'formfields', 
+              model: 'FormFieldModel'
+            }
+          }
+        }
+      });
       res.send(result)
     } catch (error) {
       console.log(error)
@@ -12,11 +26,24 @@ class CollegeController {
 
   static getSingleDocById = async (req, res) => {
     try {
-      const result = await CollegeModel.findById(req.params.id).populate('courses');
+      const result = await CollegeModel.findById(req.params.id).populate({
+        path: 'courses',
+        populate: {
+          path: 'applicationForm',
+          model: 'CollegeApplicationForm',
+          populate: {
+            path: 'sections',
+            model: 'CollegeApplicationFormSection',
+            populate: {
+              path: 'formfields', 
+              model: 'FormFieldModel'
+            }
+          }
+        }
+      });
       if (!result) {
         return res.status(404).json({ message: 'College not found' });
       }
-  
       res.status(200).json(result);
     } catch (error) {
       console.log(error);

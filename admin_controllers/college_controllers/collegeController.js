@@ -29,7 +29,6 @@ class CollegeController {
 
   static getSingleDocById = async (req, res) => {
     try {
-      const studentApplicationId  = '6718ce908e6712a7a1626e82';
       const result = await CollegeModel.findById(req.params.id).populate('courses');
       
       if (!result) {
