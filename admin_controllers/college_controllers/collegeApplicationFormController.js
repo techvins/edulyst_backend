@@ -122,7 +122,12 @@ class CollegeApplicationFormController {
 
   static getAllDocs = async (req, res) => {
     try {
-      const forms = await CollegeApplicationFormModel.find() 
+      const {collegeId} = req.query;
+      const filter = collegeId ? { college: collegeId } : {};
+      const forms = await CollegeApplicationFormModel.find(filter).populate({
+        path: 'sections',
+        model: 'CollegeApplicationFormSection',
+      })
       res.status(200).json(forms);
     } catch (error) {
       console.log(error);
@@ -132,7 +137,10 @@ class CollegeApplicationFormController {
 
   static getSingleDocById = async (req, res) => {
     try {
-      const form = await CollegeApplicationFormModel.findById(req.params.id).populate('college');
+      const form = await CollegeApplicationFormModel.findById(req.params.id).populate({
+        path: 'sections',
+        model: 'CollegeApplicationFormSection',
+      });
       if (!form) {
         return res.status(404).json({ message: 'Form not found' });
       }
