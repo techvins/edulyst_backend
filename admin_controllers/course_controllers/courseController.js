@@ -32,7 +32,18 @@ class CourseController {
     try {
       const {collegeId} = req.query;
       const filter = collegeId ? { college: collegeId } : {};
-      const result = await CourseModel.find(filter).populate('applicationForm')
+      const result = await CourseModel.find(filter).populate({
+        path: 'applicationForm',
+        model: 'CollegeApplicationForm',
+        populate: {
+          path: 'sections',
+          model: 'CollegeApplicationFormSection',
+          populate: {
+            path: 'formfields',
+            model: 'FormField',
+          },
+        },
+      });
       if(!result){
         return res.status(200).json([])
       }
@@ -44,7 +55,18 @@ class CourseController {
 
   static getSingleDocById = async (req, res) =>{
     try {
-      const result = await CourseModel.findById(req.params.id).populate('applicationForm')
+      const result = await CourseModel.findById(req.params.id).populate({
+        path: 'applicationForm',
+        model: 'CollegeApplicationForm',
+        populate: {
+          path: 'sections',
+          model: 'CollegeApplicationFormSection',
+          populate: {
+            path: 'formfields',
+            model: 'FormField',
+          },
+        },
+      });
       res.send(result)
     } catch (error) {
       console.log(error)
