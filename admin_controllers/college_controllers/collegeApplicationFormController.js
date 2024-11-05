@@ -150,6 +150,56 @@ class CollegeApplicationFormController {
       res.status(500).json({ message: 'Error fetching form', error: error.message });
     }
   }
+
+  static cloneDocById = async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const originalForm = await CollegeApplicationFormModel.findById(id).populate({
+        path: 'sections',
+        model: 'CollegeApplicationFormSection',
+      });
+      if (!originalForm) {
+        return res.status(404).json({ message: 'Original form not found' });
+      }
+
+      // Clone sections and form fields
+      const clonedSectionIds = await Promise.all(
+        originalForm.sections.map(async (section) => {
+          // Clone form fields within each section
+          const clonedFormFields = section.formfields.map((field) => ({
+            fieldName: field.fieldName,
+            fieldType: field.fieldType,
+            priority: field.priority,
+            choices: field.choices, 
+            role_sets: field.role_sets, 
+          }));
+
+          const clonedSection = new CollegeApplicationFormSectionModel({
+            name: section.name,
+            priority: section.priority,
+            college: section.college,
+            formfields: clonedFormFields,
+          });
+          await clonedSection.save();
+          return clonedSection._id;
+        })
+      );
+
+      const clonedForm = new CollegeApplicationFormModel({
+        title: `${originalForm.title} (Clone)`, 
+        priority: originalForm.priority,
+        college: originalForm.college,
+        sections: clonedSectionIds,
+      });
+      await clonedForm.save();
+
+      res.status(201).json(clonedForm);
+    } catch (error) {
+      console.error('Error cloning application form:', error);
+      res.status(500).json({ message: 'Error cloning form', error: error.message });
+    }
+  }
 }
 
 export default CollegeApplicationFormController;

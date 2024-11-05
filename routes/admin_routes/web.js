@@ -20,6 +20,7 @@ router.post('/college-application-form', CollegeApplicationFormController.create
 router.put('/college-application-form/:id', CollegeApplicationFormController.updateDocById);
 router.get('/college-application-form', CollegeApplicationFormController.getAllDocs);
 router.get('/college-application-form/:id', CollegeApplicationFormController.getSingleDocById);
+router.post('/college-application-form/clone/:id', CollegeApplicationFormController.cloneDocById);
 
 router.get('/application', StudentApplicationController.getAllDoc);
 router.get('/application/:id', StudentApplicationController.getSingleDocById);
