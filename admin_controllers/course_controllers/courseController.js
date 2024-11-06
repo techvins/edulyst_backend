@@ -72,6 +72,23 @@ class CourseController {
       console.log(error)
     }
   }
+  static updateDocById = async (req, res) =>{
+    try {
+      const result = await CourseModel.findByIdAndUpdate(req.params.id, req.body)
+      res.send(result)
+    } catch (error) {
+      console.log(error)
+    }
+   }
+ 
+   static deleteDocById = async (req, res) =>{
+     try {
+       const result = await CourseModel.findByIdAndDelete(req.params.id)
+       res.status(204).send(result)
+     } catch (error) {
+       console.log(error)
+     }
+   }
 }
 
 export default CourseController
