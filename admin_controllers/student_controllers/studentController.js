@@ -3,7 +3,9 @@ import StudentApplicationModel from '../../models/student_models/student.js';
 class StudentApplicationController {
   static getAllDoc = async (req, res) => {
     try {
-      const applications = await StudentApplicationModel.find().populate({
+      const {collegeId} = req.query;
+      const filter = collegeId ? { college: collegeId } : {};
+      const applications = await StudentApplicationModel.find(filter).populate({
         path: 'courses',
         model: 'Course',
         populate: {
